@@ -85,7 +85,7 @@ class SRU(nn.Module):
         y = self.reconstruct(x_1, x_2)
         # print(x_1.shape)
 
-        return y,x_1,x_2
+        return y
 
     def reconstruct(self, x_1, x_2):
         # 将门控后的输入特征x_1和x_2进行分组
@@ -189,7 +189,7 @@ class ScConv(nn.Module):
         # USC = self.CRU(x)
         # x=USS+USC
         x, freqAtten = self.frequencyAttention(x)
-        return x,x_1,x_2
+        return x
 
 
 # This is two parts of the attention module:
@@ -314,9 +314,9 @@ class ContextModule(nn.Module):
         return torch.cat([x1, x2], dim=1)
 
 
-# SFT-Net:
+# SCM-NET:
 # Attention module + DSC module + LSTM module
-class SFT_Net(nn.Module):
+class SCM_NET(nn.Module):
     def __init__(self, num_classes=1):
         super(SFT_Net, self).__init__()
         # self.Atten = sfAttention(in_channels=5)
@@ -389,36 +389,7 @@ class SFT_Net(nn.Module):
     def call_back(self):
         return
     def forward(self, x):
-        #
-        # x_list = []  # 用于存储挤压后的输入张量，方便后续统一处理
-        # for i in range(16):
-        #     x_list.append(torch.squeeze(x[:, i, :, :, :], 1))
-        #
-        # scconv_outputs = []  # 用于存储ScConv层的输出
-        # count=0
-        # for xi in x_list:
-        #     out, out_1, out_2 = self.ScConv(xi)  # 获取ScConv层的多个输出
-        #     count+=1
-        #     # print(count)
-        #     scconv_outputs.append((out, out_1, out_2))  # 将ScConv层的输出以元组形式存入列表
-        #
-        # # 以下是原forward方法中后续对特征继续处理的代码，目前先保持原样演示如何获取ScConv输出
-        # bneck_outputs = []
-        # for out_tuple in scconv_outputs:
-        #     out = out_tuple[0]  # 取出ScConv输出中的第一个输出（假设第一个是主输出，按需调整）
-        #     out = self.bneck(out)
-        #     bneck_outputs.append(out)
-        #
-        # x1 = [self.linear(out.view(out.shape[0], 1, -1)) for out in bneck_outputs]
-        # out = torch.cat(
-        #     (x1[0], x1[1], x1[2], x1[3], x1[4], x1[5], x1[6], x1[7], x1[8], x1[9], x1[10], x1[11], x1[12], x1[13],
-        #      x1[14], x1[15]), dim=1)
-        #
-        # out = self.mamba(out)
-        # out = out.reshape(out.shape[0], out.shape[1] * out.shape[2])
-        # out = self.linear1(out)
-        # out = self.dropout(out)
-        # out1 = self.linear2(out)
+    
         # x1 - x16 [batch, 16, 5, 6, 9]
         x1 = torch.squeeze(x[:, 0, :, :, :], 1)  # [batch, 5, 6, 9]
         x2 = torch.squeeze(x[:, 1, :, :, :], 1)
@@ -436,50 +407,24 @@ class SFT_Net(nn.Module):
         x14 = torch.squeeze(x[:, 13, :, :, :], 1)
         x15 = torch.squeeze(x[:, 14, :, :, :], 1)
         x16 = torch.squeeze(x[:, 15, :, :, :], 1)
-        # print(x1.shape)
-        # #print(x1.shape)
-        # # # spaAtten and freqAtten
-        # # x1, spaAtten1, freqAtten1 = self.Atten(x1)  # [batch, 5, 6, 9], [batch, 6, 9], [batch, 5, 1]
-        # # x2, spaAtten2, freqAtten2 = self.Atten(x2)
-        # # x3, spaAtten3, freqAtten3 = self.Atten(x3)
-        # # x4, spaAtten4, freqAtten4 = self.Atten(x4)
-        # # x5, spaAtten5, freqAtten5 = self.Atten(x5)
-        # # x6, spaAtten6, freqAtten6 = self.Atten(x6)
-        # # x7, spaAtten7, freqAtten7 = self.Atten(x7)
-        # # x8, spaAtten8, freqAtten8 = self.Atten(x8)
-        # # x9, spaAtten9, freqAtten9 = self.Atten(x9)
-        # # x10, spaAtten10, freqAtten10 = self.Atten(x10)
-        # # x11, spaAtten11, freqAtten11 = self.Atten(x11)
-        # # x12, spaAtten12, freqAtten12 = self.Atten(x12)
-        # # x13, spaAtten13, freqAtten13 = self.Atten(x13)
-        # # x14, spaAtten14, freqAtten14 = self.Atten(x14)
-        # # x15, spaAtten15, freqAtten15 = self.Atten(x15)
-        # # x16, spaAtten16, freqAtten16 = self.Atten(x16)
-        # # # attention avg
-        # # spaAtten = (spaAtten1 + spaAtten2 + spaAtten3 + spaAtten4 + spaAtten5 + spaAtten6 + spaAtten7 + spaAtten8
-        # #             + spaAtten9 + spaAtten10 + spaAtten11 + spaAtten12 + spaAtten13 + spaAtten14 + spaAtten15 + spaAtten16) / 16
-        # # freqAtten = (freqAtten1 + freqAtten2 + freqAtten3 + freqAtten4 + freqAtten5 + freqAtten6 + freqAtten7 + freqAtten8
-        # #             -+ freqAtten9 + freqAtten10 + freqAtten11 + freqAtten12 + freqAtten13 + freqAtten14 + freqAtten15 + freqAtten16) / 16
+     
         #
-        # # SRU
-        #
-        x1 ,x1_1,x1_2= self.ScConv(x1)  # [batch, 5, 6, 9], [batch, 6, 9], [batch, 5, 1]
-        x2 ,x2_1,x2_2= self.ScConv(x2)
-        x3 ,x3_1,x3_2= self.ScConv(x3)
-        x4 ,x4_1,x4_2= self.ScConv(x4)
-        x5 ,x5_1,x5_2= self.ScConv(x5)
-        x6 ,x6_1,x6_2= self.ScConv(x6)
-        x7 ,x7_1,x7_2= self.ScConv(x7)
-        x8 ,x8_1,x8_2= self.ScConv(x8)
-        x9 ,x9_1,x9_2= self.ScConv(x9)
-        x10 ,x10_1,x10_2= self.ScConv(x10)
-        x11 ,x11_1,x11_2= self.ScConv(x11)
-        x12 ,x12_1,x12_2= self.ScConv(x12)
-        x13 ,x13_1,x13_2= self.ScConv(x13)
-        x14 ,x14_1,x14_2= self.ScConv(x14)
-        x15 ,x15_1,x15_2= self.ScConv(x15)
-        x16 ,x16_1,x16_2= self.ScConv(x16)
-        cm=x1
+        x1 = self.ScConv(x1)  # [batch, 5, 6, 9], [batch, 6, 9], [batch, 5, 1]
+        x2 = self.ScConv(x2)
+        x3 = self.ScConv(x3)
+        x4 = self.ScConv(x4)
+        x5 = self.ScConv(x5)
+        x6 = self.ScConv(x6)
+        x7 = self.ScConv(x7)
+        x8 = self.ScConv(x8)
+        x9 = self.ScConv(x9)
+        x10 = self.ScConv(x10)
+        x11 = self.ScConv(x11)
+        x12 = self.ScConv(x12)
+        x13 = self.ScConv(x13)
+        x14 = self.ScConv(x14)
+        x15 = self.ScConv(x15)
+        x16 = self.ScConv(x16)
         # sscout1 = torch.cat()
         # print(x1.shape)
         # print(x1_1.shape)
@@ -546,31 +491,17 @@ class SFT_Net(nn.Module):
         x14 = self.linear(x14.view(x14.shape[0], 1, -1))
         x15 = self.linear(x15.view(x15.shape[0], 1, -1))
         x16 = self.linear(x16.view(x16.shape[0], 1, -1))
-        # #print(x1.shape)
-        #
-        # # print(x16.shape)
-        #
+ 
         # # cat 16 * [batch, 1, 32] -> [batch, 16, 32]
         out = torch.cat((x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16), dim=1)
-        # #print(out.shape)
+
         #
-        # # after LSTM                    [batch, 16, 64]
-        # # out, (h, c) = self.lstm(out)
-        # # print(out.shape)
-        # #print(self.mamba)
+        # # after MAMBA                [batch, 16, 64]
+
         #
         # #out,_=self.rnn(out)
         out=self.mamba(out)
-        # # out, (h, c) = self.lstm(out)
-        # #print(out.shape)
-        # #print("1")
-        #
-        #
-        # # print('2')
-        # #
-        # # # torch.Size([2, 64, 16]) batch_size,length,dim
-        # #
-        # # print(out.shape)
+ 
         #
         # # flatten 通常用于将多维的输入张量（比如卷积层的输出）转换为一维张量，以便连接到全连接层或者输出层
         # # [batch, 16*120]
@@ -578,30 +509,19 @@ class SFT_Net(nn.Module):
         #
         # # first linear                  [batch, 120]
         out = self.linear1(out)
-        # #out = self.linear0(out)
         out = self.dropout(out)
-        # # print(out.shape)
-        # # second linear                 [batch, ]
-        out1 = self.linear2(out)
-        # print(out.shape)
-        # finnal feature and attention  [batch, 1]
-        # return out, spaAtten, freqAtten
-        return out,out1,x1_1,x1_2,x2_1,x2_2,x3_1,x3_2,x4_1,x4_2,x5_1,x5_2,x6_1,x6_2,x7_1,x7_2,x8_1,x8_2,x9_1,x9_2,x10_1,x10_2,x11_1,x11_2,x12_1,x12_2,x13_1,x13_2,x14_1,x14_2,x15_1,x15_2,x16_1,x16_2
+        out = self.linear2(out)
+
+        return out
 
 
 
 if __name__ == '__main__':
-    # input = torch.rand((32, 16, 5, 6, 9))
-    # net = SFT_Net()
-    # output, spaAtten, freqAtten = net(input)
-    # print("Input shape     : ", input.shape)
-    # print("Output shape    : ", output.shape)
-    # print("spaAtten shape  : ", spaAtten.shape)
-    # print("freqAtten shape : ", freqAtten.shape)
+
 
     input = torch.rand((32, 16, 5, 6, 9))
     input=input.cuda("cuda:1")
-    net = SFT_Net().cuda("cuda:1")
+    net = SCM_NET().cuda("cuda:1")
     a,output,ssc_x1,ssc_x2 = net(input)
     print(a.shape)
     print("mamba")
