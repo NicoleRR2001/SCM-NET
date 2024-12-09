@@ -5,15 +5,6 @@
 ABSTRACT
 Emotion recognition electroencephalography has been applied to the Braincomputer-powered medical product interface BCI, which supports various medical activities with existing medical diagnostics. However, its development is limited by the difficulty of multi-dimensional analysis of space-channel-temporal. To address this problem, this paper proposes a Mamba-Enhanced Spatial-Channel Cross-Recombination Temporal Network (SCM-NET). A 4D EEG signal that has undergone DE cross-entropy is used as input. Firstly, the attention mechanism module is used to segment and reorganize spatial and frequency band signals according to different threshold sizes. Second, the DSC network is used to highlight the most valuable information features of space and frequency bands for information fusion. Finally, the high-level time information features were extracted based on the Mamba network. We evaluated its performance using DEAP, MEEG, SEED, and SEED-VIG datasets and achieved recognized accuracy rates of 71.5\%, 97.1\%, 88.3\%, and 99.86\%, respectively, which outperformed the current state-of-the-art technology compared to existing methods.
 
-<!-- PROJECT SHIELDS -->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- PROJECT LOGO -->
 <br />
 
@@ -43,6 +34,8 @@ pip install -r requirements.txt
 ```
 It contains the following packages.
 
+
+```sh
 numpy==1.19.5
 scikit_learn==1.0.2
 scipy==1.5.4
@@ -52,7 +45,7 @@ triton==2.3.1
 transformers==4.43.3
 causal-conv1d==1.4.0
 mamba-ssm==2.2.2
-
+```
 
 ### File and folder contents
 
@@ -76,20 +69,13 @@ filetree
 │  └── data_4d.npy
 ```
 
-
-DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
-
-DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
-
-dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
-
-train : training and testing, the training curve can be displayed in real time on the web page through visdom.
-
-Model : the defined SCM-NET model.
-
-"./processedData/" : used to store the converted 3D features and 4D features.
-
-"./pth/" : used to store the model with the highest accuracy in the nth fold training.
+1.DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
+2.DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
+3.dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
+4.train : training and testing, the training curve can be displayed in real time on the web page through visdom.
+5.Model : the defined SCM-NET model.
+6."./processedData/" : used to store the converted 3D features and 4D features.
+7."./pth/" : used to store the model with the highest accuracy in the nth fold training.
 
 ### Quick start
 1. open "SCM-NET/DE_3D_Feature", change the path of dataset and run it, get the result "SFT-Net/processedData/data_3d.npy"
