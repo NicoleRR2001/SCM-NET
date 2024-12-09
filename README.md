@@ -27,17 +27,12 @@ Emotion recognition electroencephalography has been applied to the Braincomputer
 
  本篇README.md面向开发者
  
-## 目录
+## Contents
 
 - [Requirements](#Requirements)
-- [File and folder contents](#File and folder contents)
-- [Quick start](#Quick start)
+- [File and folder contents](#File-and-folder-contents)
+- [Quick start](#Quick-start)
 - [如何参与开源项目](#如何参与开源项目)
-
-### 上手指南
-
-请将所有链接中的“shaojintian/Best_README_template”改为“your_github_name/your_repository”
-
 
 
 ### Requirements
@@ -60,19 +55,6 @@ mamba-ssm==2.2.2
 
 
 ### File and folder contents
-DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
-
-DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
-
-dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
-
-train : training and testing, the training curve can be displayed in real time on the web page through visdom.
-
-Model : the defined SCM-NET model.
-
-"./processedData/" : used to store the converted 3D features and 4D features.
-
-"./pth/" : used to store the model with the highest accuracy in the nth fold training.
 
 ```
 filetree 
@@ -94,6 +76,20 @@ filetree
 │  └── data_4d.npy
 ```
 
+
+DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
+
+DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
+
+dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
+
+train : training and testing, the training curve can be displayed in real time on the web page through visdom.
+
+Model : the defined SCM-NET model.
+
+"./processedData/" : used to store the converted 3D features and 4D features.
+
+"./pth/" : used to store the model with the highest accuracy in the nth fold training.
 
 ### Quick start
 1. open "SCM-NET/DE_3D_Feature", change the path of dataset and run it, get the result "SFT-Net/processedData/data_3d.npy"
@@ -118,7 +114,3 @@ In the same time, open the website in the prompt for real-time visualization. Yo
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-
-
-
