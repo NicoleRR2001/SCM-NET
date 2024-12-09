@@ -20,7 +20,7 @@ Emotion recognition electroencephalography has been applied to the Braincomputer
 <p align="center">
   <a href="https://github.com/NicoleRR2001/SCM-NET/">
     <img src="image/sru.png" alt="Logo" width="1000" height="400">
-    <img src="image/总体流程图.png" alt="Logo" width="800" height="200">
+    <img src="image/总体流程图2.png" alt="Logo" width="800" height="200">
   </a>
 
   <h3 align="center">"完美的"README模板</h3>
