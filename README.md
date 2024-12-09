@@ -69,13 +69,13 @@ filetree
 │  └── data_4d.npy
 ```
 
-1.DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
-2.DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
-3.dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
-4.train : training and testing, the training curve can be displayed in real time on the web page through visdom.
-5.Model : the defined SCM-NET model.
-6."./processedData/" : used to store the converted 3D features and 4D features.
-7."./pth/" : used to store the model with the highest accuracy in the nth fold training.
+1. DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
+2. DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
+3. dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
+4. train : training and testing, the training curve can be displayed in real time on the web page through visdom.
+5. Model : the defined SCM-NET model.
+6. "./processedData/" : used to store the converted 3D features and 4D features.
+7. "./pth/" : used to store the model with the highest accuracy in the nth fold training.
 
 ### Quick start
 1. open "SCM-NET/DE_3D_Feature", change the path of dataset and run it, get the result "SFT-Net/processedData/data_3d.npy"
