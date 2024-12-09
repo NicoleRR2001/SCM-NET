@@ -19,7 +19,8 @@ Emotion recognition electroencephalography has been applied to the Braincomputer
 
 <p align="center">
   <a href="https://github.com/shaojintian/Best_README_template/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/sru.png" alt="Logo" width="80" height="80">
+    <img src="images/总体流程图.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">"完美的"README模板</h3>
