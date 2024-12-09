@@ -30,8 +30,6 @@ Emotion recognition electroencephalography has been applied to the Braincomputer
 ## 目录
 
 - [Requirements](#Requirements)
-  - [开发前的配置要求](#开发前的配置要求)
-  - [安装步骤](#安装步骤)
 - [File and folder contents](#File and folder contents)
 - [Quick start](#Quick start)
 - [如何参与开源项目](#如何参与开源项目)
@@ -63,11 +61,17 @@ mamba-ssm==2.2.2
 
 ### File and folder contents
 DE_3D_Feature.py : Convert raw EEG data of 23 subjects to 3D features.
+
 DE_4D_Feature.py : Convert 3D features into 4D features according to the 2D topographic map (refer to the paper).
+
 dataloader : Divide the four-dimensional features and dataset labels into training set (4/5) and test set (1/5) according to the custom five-fold cross-validation.
+
 train : training and testing, the training curve can be displayed in real time on the web page through visdom.
+
 Model : the defined SCM-NET model.
+
 "./processedData/" : used to store the converted 3D features and 4D features.
+
 "./pth/" : used to store the model with the highest accuracy in the nth fold training.
 
 ```
