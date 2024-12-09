@@ -14,9 +14,7 @@ Emotion recognition electroencephalography has been applied to the Braincomputer
     <img src="image/sru.png" alt="Logo" width="1000" height="400">
   </a>
 
-
-
- 本篇README.md面向开发者
+The following is a example about SEED-VIG Dataset.
  
 ## Contents
 
